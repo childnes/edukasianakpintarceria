@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>🌟 Pintar Ceria - Game Edukasi Anak 🌟</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Animasi -->
+    <div class="bg-bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+
+    <!-- LAYAR 1: LOGIN -->
+    <div id="login" class="screen active">
+        <div class="login-container">
+            <div class="maskot-login">🦁</div>
+            <h1 class="judul-login">🌟 Pintar Ceria 🌟</h1>
+            <p class="sub-login">Yuk Belajar Sambil Bermain!</p>
+            
+            <div class="form-login">
+                <label for="nama">Siapa Namamu?</label>
+                <input type="text" id="nama" placeholder="Ketik namamu..." maxlength="20">
+                
+                <label for="usia">Berapa Usiamu?</label>
+                <div class="usia-grid">
+                    <button class="btn-usia" data-usia="1" onclick="pilihUsia(1)">1 Tahun</button>
+                    <button class="btn-usia" data-usia="2" onclick="pilihUsia(2)">2 Tahun</button>
+                    <button class="btn-usia" data-usia="3" onclick="pilihUsia(3)">3 Tahun</button>
+                    <button class="btn-usia" data-usia="4" onclick="pilihUsia(4)">4 Tahun</button>
+                    <button class="btn-usia" data-usia="5" onclick="pilihUsia(5)">5 Tahun</button>
+                    <button class="btn-usia" data-usia="6" onclick="pilihUsia(6)">6 Tahun</button>
+                    <button class="btn-usia" data-usia="7" onclick="pilihUsia(7)">7 Tahun</button>
+                </div>
+                
+                <button class="btn-masuk" onclick="masukGame()" id="btnMasuk" disabled>
+                    🚀 Mulai Bermain!
+                </button>
+            </div>
+            
+            <div class="info-login" id="infoLogin"></div>
+        </div>
+    </div>
+
+    <!-- LAYAR 2: MENU UTAMA (SETELAH LOGIN) -->
+    <div id="menu" class="screen">
+        <div class="header-menu">
+            <div class="profil-user">
+                <div class="avatar-user" id="avatarUser">👶</div>
+                <div class="info-user">
+                    <div class="nama-user" id="namaUser">Anak</div>
+                    <div class="usia-user" id="usiaUser">Usia 1 tahun</div>
+                </div>
+            </div>
+            <button class="btn-logout" onclick="logout()"></button>
+        </div>
+        
+        <div class="maskot"></div>
+        <h1 class="judul-animasi">🌟 Pintar Ceria 🌟</h1>
+        <p class="sub-judul" id="sapaan">Halo! Ayo belajar!</p>
+        
+        <div class="kategori-grid">
+            <button class="btn-kategori" onclick="startGame(1, 50)" id="kat1">
+                <div class="kategori-emoji">👶</div>
+                <div class="kategori-nama">Usia 1-2 Tahun</div>
+                <div class="kategori-level">Level 1-50</div>
+                <div class="status-kat" id="status1"></div>
+            </button>
+            <button class="btn-kategori" onclick="startGame(51, 150)" id="kat2">
+                <div class="kategori-emoji">🧒</div>
+                <div class="kategori-nama">Usia 2-3 Tahun</div>
+                <div class="kategori-level">Level 51-150</div>
+                <div class="status-kat" id="status2"></div>
+            </button>
+            <button class="btn-kategori" onclick="startGame(151, 300)" id="kat3">
+                <div class="kategori-emoji"></div>
+                <div class="kategori-nama">Usia 3-4 Tahun</div>
+                <div class="kategori-level">Level 151-300</div>
+                <div class="status-kat" id="status3"></div>
+            </button>
+            <button class="btn-kategori" onclick="startGame(301, 500)" id="kat4">
+                <div class="kategori-emoji"></div>
+                <div class="kategori-nama">Usia 4-5 Tahun</div>
+                <div class="kategori-level">Level 301-500</div>
+                <div class="status-kat" id="status4"></div>
+            </button>
+            <button class="btn-kategori" onclick="startGame(501, 750)" id="kat5">
+                <div class="kategori-emoji"></div>
+                <div class="kategori-nama">Usia 5-6 Tahun</div>
+                <div class="kategori-level">Level 501-750</div>
+                <div class="status-kat" id="status5"></div>
+            </button>
+            <button class="btn-kategori" onclick="startGame(751, 1000)" id="kat6">
+                <div class="kategori-emoji">🎓</div>
+                <div class="kategori-nama">Usia 6-7 Tahun</div>
+                <div class="kategori-level">Level 751-1000</div>
+                <div class="status-kat" id="status6"></div>
+            </button>
+        </div>
+    </div>
+
+    <!-- LAYAR 3: PILIH LEVEL -->
+    <div id="levels" class="screen">
+        <div class="header-levels">
+            <button class="btn-kembali" onclick="showMenu()">️</button>
+            <h2 id="levelTitle">Pilih Level</h2>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div id="levelGrid" class="level-grid"></div>
+    </div>
+
+    <!-- LAYAR 4: BERMAIN -->
+    <div id="game" class="screen">
+        <div class="header-game">
+            <button class="btn-kembali" onclick="showLevels()">✕</button>
+            <div class="level-badge">Level <span id="currentLevel">1</span></div>
+            <div class="bintang-display" id="bintangDisplay">⭐⭐⭐</div>
+        </div>
+        
+        <div class="soal-container">
+            <div class="maskot-kecil" id="maskotGame">🦁</div>
+            <div class="soal-bubble">
+                <div id="questionText" class="soal-teks">Soal</div>
+                <div id="questionDisplay" class="soal-display">🎯</div>
+            </div>
+        </div>
+
+        <div id="options" class="options-grid"></div>
+        <div id="feedback" class="feedback-animasi"></div>
+    </div>
+
+    <!-- LAYAR 5: SELESAI -->
+    <div id="done" class="screen">
+        <div class="selesai-container">
+            <div class="trofi-animasi">🏆</div>
+            <h1 class="selesai-judul">Hebat! 🎉</h1>
+            <div id="stars" class="bintang-besar">⭐⭐⭐</div>
+            <p id="doneText" class="selesai-teks">Kamu Luar Biasa!</p>
+            <div class="tombol-aksi">
+                <button class="btn-aksi btn-main" onclick="nextLevel()">➡️ Lanjut</button>
+                <button class="btn-aksi btn-pilih" onclick="showLevels()">📋 Pilih Level</button>
+            </div>
+        </div>
+    </div>
+
+  <!-- LAYAR MENU MENGGAMBAR -->
+<div id="menu-gambar" class="screen">
+    <div class="header-levels">
+        <button class="btn-kembali" onclick="showMenu()">⬅️</button>
+        <h2>🎨 Game Menggambar</h2>
+    </div>
+    
+    <div class="pilih-gambar-grid" id="pilihGambarGrid">
+        <!-- Akan diisi oleh JavaScript -->
+    </div>
+</div>
+
+<!-- LAYAR MENGGAMBAR -->
+<div id="layar-menggambar" class="screen">
+    <div class="header-game">
+        <button class="btn-kembali" onclick="showMenuGambar()">✕</button>
+        <div class="level-badge" id="judulGambar">Menggambar</div>
+        <div class="tombol-aksi-mini">
+            <button class="btn-mini" onclick="resetGambar()">🔄</button>
+            <button class="btn-mini" onclick="simpanGambar()">💾</button>
+        </div>
+    </div>
+    
+    <div class="canvas-container">
+        <canvas id="canvasGambar"></canvas>
+        <div class="canvas-overlay" id="canvasOverlay">
+            <div class="titik" id="titikContainer"></div>
+        </div>
+    </div>
+    
+    <div class="tools-menggambar">
+        <div class="info-langkah">
+            <span id="langkahTeks">Hubungkan titik 1 ke titik 2</span>
+            <span id="progressTitik">0/0</span>
+        </div>
+        
+        <div class="warna-picker" id="warnaPicker">
+            <div class="warna-btn active" data-warna="#000000" style="background:#000"></div>
+            <div class="warna-btn" data-warna="#ff4444" style="background:#ff4444"></div>
+            <div class="warna-btn" data-warna="#4488ff" style="background:#4488ff"></div>
+            <div class="warna-btn" data-warna="#44cc44" style="background:#44cc44"></div>
+            <div class="warna-btn" data-warna="#ffdd44" style="background:#ffdd44"></div>
+            <div class="warna-btn" data-warna="#ff8844" style="background:#ff8844"></div>
+            <div class="warna-btn" data-warna="#aa44ff" style="background:#aa44ff"></div>
+            <div class="warna-btn" data-warna="#ff88cc" style="background:#ff88cc"></div>
+        </div>
+        
+        <div class="slider-ukuran">
+            <span>🖌️</span>
+            <input type="range" id="ukuranKuas" min="2" max="20" value="5">
+            <span id="ukuranTeks">5px</span>
+        </div>
+        
+        <div class="mode-buttons">
+            <button class="btn-mode active" id="btnHubung" onclick="setMode('hubung')">🔗 Hubungkan</button>
+            <button class="btn-mode" id="btnBebas" onclick="setMode('bebas')">✏️ Bebas</button>
+            <button class="btn-mode" id="btnHapus" onclick="setMode('hapus')"> Hapus</button>
+        </div>
+    </div>
+    
+    <div id="selesaiGambar" class="selesai-gambar hidden">
+        <div class="trofi-animasi">🎉</div>
+        <h2>Hebat! Gambar Selesai!</h2>
+        <button class="btn-aksi btn-main" onclick="tutupSelesaiGambar()">Lanjut Mewarnai</button>
+    </div>
+</div>
+
+    <div id="confetti" class="confetti-container"></div>
+
+    <script src="game.js"></script>
+</body>
+</html>
